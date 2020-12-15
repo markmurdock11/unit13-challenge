@@ -98,6 +98,45 @@ def recommend_portfolio(intent_request):
         # for the first violation detected.
 
         ### YOUR DATA VALIDATION CODE STARTS HERE ###
+        def validate_data(first_name,age, investment_amount, risk_level, source):
+            
+            if first_name is None:
+                return build_validation_result(
+                    False,
+                    "first_name",
+                    "You must provide your first name to use this servic!"
+                    )
+            if age is not None:
+                age = parse_int(age)
+                if age <= 0:
+                    return build_validation_result(
+                        False,
+                        "age",
+                        "You must be at least one years old to use this service"
+                    )
+                elif age >= 65:
+                    return build_validation_result(
+                        False,
+                        "age",
+                        "You must be under the age of 65 to use this service"
+                    )
+            if investment_amount is not None:
+                investment_amount = parse_int(
+                    investment_amount
+                )
+                if investment_amount <= 0:
+                    return build_validation_result(
+                        False,
+                        "invesment_amount",
+                        "The amount needed to invest should be over 0 dollars"
+                    )
+            if risk_level is None:
+                return build_validation_result(
+                    False,
+                    "risk_level",
+                    "You need to choose a risk level in order to get your recommendation!"
+                )
+            return build_validation_result(True, None, None)
 
         ### YOUR DATA VALIDATION CODE ENDS HERE ###
 
